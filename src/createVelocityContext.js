@@ -84,6 +84,9 @@ module.exports = function createVelocityContext(request, options, payload) {
       base64Decode: x => new Buffer(x.toString(), 'base64').toString('binary'),
       parseJson: x => {
         try {
+          if(!isNaN(parseFloat(x)) && isFinite(x)) { // test if is numeric
+            return '';
+          }
           return JSON.parse(x)
         } catch (e) {
           return '';
