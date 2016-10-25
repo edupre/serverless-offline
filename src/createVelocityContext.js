@@ -71,7 +71,13 @@ module.exports = function createVelocityContext(request, options, payload) {
     },
     stageVariables: options.stageVariables,
     util: {
-      escapeJavaScript,
+      escapeJavaScript: x => {
+        try {
+          return escapeJavaScript(x)
+        } catch (e) {
+          return '';
+        }
+      },
       urlEncode: encodeURI,
       urlDecode: decodeURI,
       base64Encode: x => new Buffer(x.toString(), 'binary').toString('base64'),
